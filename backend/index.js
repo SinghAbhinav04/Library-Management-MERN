@@ -2,6 +2,7 @@ const express = require("express")
 const cors = require("cors")
 const connectMongoDB = require('./connection')
 const router = require('./router/user')
+const bookRouter = require('./router/books');
 
 const PORT = 8001;
 const app = express();
@@ -14,7 +15,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
 app.use("/",router)
-
+app.use("/addbook",bookRouter)
 app.listen(PORT,()=>{
     console.log(`Server started at ${PORT}`)
 })

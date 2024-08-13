@@ -1,6 +1,7 @@
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
+const secretKey = 'mySuperSecretKey123!';
 
-// Create a new user
 async function handleCreateUser(req, res) {
     try {
         const { name, email, password } = req.body;
@@ -9,13 +10,11 @@ async function handleCreateUser(req, res) {
             return res.status(400).json({ message: "All fields are required" });
         }
 
-        // Check if the user already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(409).json({ message: "User with this email already exists" });
         }
 
-        // Create and save the new user
         await User.create({ name, email, password });
 
         res.status(201).json({ message: "User created successfully" });
@@ -25,7 +24,6 @@ async function handleCreateUser(req, res) {
     }
 }
 
-// Update user details
 async function updateUserDetails(req, res) {
     try {
         const { name, email, password } = req.body;
@@ -35,7 +33,7 @@ async function updateUserDetails(req, res) {
         }
 
         const updatedUser = await User.findOneAndUpdate(
-            { email: req.params.email }, // Assuming email is used as a unique identifier
+            { email: req.params.email }, 
             { name, email, password },
             { new: true }
         );
@@ -51,7 +49,6 @@ async function updateUserDetails(req, res) {
     }
 }
 
-// Delete a user
 async function deleteUser(req, res) {
     try {
         const { email } = req.params;
@@ -69,7 +66,6 @@ async function deleteUser(req, res) {
     }
 }
 
-// Handle user login
 async function handleLoginUser(req, res) {
     try {
         const { email, password } = req.body;
@@ -82,8 +78,11 @@ async function handleLoginUser(req, res) {
         if (!user) {
             return res.status(401).json({ message: "Invalid email or password" });
         }
-        console.log("Successful");
-        res.status(200).json({ message: "Login successful", user });
+
+        const token = jwt.sign({ email: user.email }, secretKey, { expiresIn: '1h' });
+        console.log("Successful login for user:", user.email);
+
+        res.status(200).json({ message: "Login successful", token }); 
     } catch (err) {
         console.error("Error =>", err);
         return res.status(500).json({ message: "Server Error" });

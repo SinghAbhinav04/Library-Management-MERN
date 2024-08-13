@@ -8,29 +8,28 @@ function LoginPage() {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        axios.post("http://localhost:8001/login", { email, password })
-            .then((result) => {
-                console.log(result);
-                navigate('/userProfile');
-            })
-            .catch(err => { console.log(err) });
+        try {
+            const response = await axios.post("http://localhost:8001/login", { email, password });
+            const { token } = response.data;
+            localStorage.setItem('token', token);
+            console.log('Login successful:', token);
+            navigate('/userProfile');
+        } catch (err) {
+            console.error('Login failed:', err);
+        }
+
+  
     }
 
     return (
         <div className="login-container">
-            <nav className="navbar">
-                <ul className="nav-links">
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/signup">SignUp</Link></li>
-                    <li><Link to="/login">Login</Link></li>
-                    <li><Link to="/about">About</Link></li>
-                </ul>
-            </nav>
-
+        
             <div className="form-section">
-                <h1>Login</h1>
+            <h1>Login to app</h1>
+                <hr></hr>
+               
                 <form onSubmit={handleSubmit} className="login-form">
                     <label>Email</label>
                     <input type="email" required placeholder="Enter your Email" onChange={(e) => setEmail(e.target.value)} />
@@ -40,6 +39,8 @@ function LoginPage() {
 
                     <button type="submit">Submit</button>
                 </form>
+                <hr></hr>
+                <p>Don't have an account? <Link to="/signup">Signup Here</Link></p>
             </div>
         </div>
     )

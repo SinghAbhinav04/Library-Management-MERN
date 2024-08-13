@@ -1,0 +1,101 @@
+
+.wrapper {
+    min-height: 100vh;
+    min-width: 100vw;
+    background-color: rgb(21, 20, 20);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-container {
+    color: white;
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.progress-bar {
+    height: 4px;
+    background-color: #bdb8b8;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.progress {
+    height: 100%;
+    background-color: #1db954;
+    width: 100%; 
+}
+
+.signup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.signup-header i {
+    color: #1db954;
+    cursor: pointer;
+}
+
+.signup-header p {
+    font-size: 14px;
+    color: #b3b3b3;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #282828;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s ease;
+    outline: 2px solid rgb(134, 133, 133);
+}
+
+input[type="text"]:hover{
+    outline: 2px solid rgb(220, 218, 218);
+}
+
+input[type="text"]:focus {
+    outline: 2px solid white;
+}
+
+button {
+    margin-left: 17%;
+    font-weight: bold;
+    background-color: #1db954;
+    width: 70%;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #1ed760;
+}
